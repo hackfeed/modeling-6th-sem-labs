@@ -20,7 +20,7 @@ func foapprox(x float64) float64 {
 		4*math.Pow(x, 27)/3341878155 + math.Pow(x, 31)/109876902975
 }
 
-// Picard used
+// Picard used to solve Cauchy problem with Picard method
 func Picard(x0, h float64, n int) FMat64 {
 	r := MakeFMat64(4, 0)
 

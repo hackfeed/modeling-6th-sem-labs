@@ -1,6 +1,6 @@
 package cauchy
 
-// Euler used
+// Euler used to solve Cauchy problem with Euler method
 func Euler(x0, y0, h float64, n int) FArr64 {
 	r := make(FArr64, 0)
 
