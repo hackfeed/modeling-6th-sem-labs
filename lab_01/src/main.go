@@ -10,7 +10,7 @@ func main() {
 	xs := 0.
 	xe := 2.
 	ys := 0.
-	h := 1e-1
+	h := 1e-4
 	n := int(math.Ceil(math.Abs(xe-xs) / h))
 
 	x := make(cauchy.FArr64, 0)

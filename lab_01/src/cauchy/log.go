@@ -22,7 +22,7 @@ func Log(p FMat64, e, rk, x FArr64) {
 		aurora.Green("Runge-Kutta"),
 	)
 	fmt.Printf("%v%198v%v\n", "+", strings.Repeat("-", 198), "+")
-	for i := 0; i < len(e); i++ {
+	for i := 0; i < len(e); i += 500 {
 		fmt.Printf(
 			"|%27.5f|%27.5f|%27.5f|%27.5f|%28.5f|%28.5f|%28.5f|\n",
 			x[i],
