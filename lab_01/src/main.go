@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"lab_01/cauchy"
 	"math"
-	"src/cauchy"
 )
 
 func main() {
