@@ -13,12 +13,12 @@ func GetT0(I float64) float64 {
 	return interpolate(I, CurTbl.GetColumn(0), CurTbl.GetColumn(1))
 }
 
-// GetT0 is used to find T0 parameter
+// GetM is used to find m parameter
 func GetM(I float64) float64 {
 	return interpolate(I, CurTbl.GetColumn(0), CurTbl.GetColumn(2))
 }
 
-// GetT0 is used to find T0 parameter
+// GetRp is used to find Rp parameter
 func GetRp(I, T0, m float64) float64 {
 	f := func(x float64) float64 {
 		return getSigma(getT(x, T0, m)) * x
@@ -28,7 +28,7 @@ func GetRp(I, T0, m float64) float64 {
 	return Params.Le / (2 * math.Pi * Params.R * Params.R * val)
 }
 
-// GetT0 is used to find parameters with Runge-Kutta method
+// GetRungeKutta is used to find parameters with Runge-Kutta method
 func GetRungeKutta(x, y, z, h, Rp float64) (float64, float64) {
 	cfsArr := make([]RCoeffs64, Order)
 
