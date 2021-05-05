@@ -1,4 +1,4 @@
-package optic
+package emission
 
 var (
 	LambdaTbl = FMat64{
@@ -9,5 +9,5 @@ var (
 		FArr64{293, 1278, 1528, 1677, 2000, 2400},
 		FArr64{2.0e-2, 5.0e-2, 7.8e-2, 1.0e-1, 1.3e-1, 2.0e-1},
 	}
-	Params = Optic{1.4, 0.2, 300, 400, 5.668e-12, 100, 0.05, 1e-4}
+	Params = Emission{1.4, 0.2, 300, 400, 5.668e-12, 100, 0.05, 1e-4}
 )

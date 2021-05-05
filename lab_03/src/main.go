@@ -1,39 +1,41 @@
 package main
 
 import (
-	"lab_03/optic"
+	"lab_03/emission"
 )
 
 func main() {
-	lt := optic.Interpolate(optic.LambdaTbl[0], optic.LambdaTbl[1])
-	kt := optic.Interpolate(optic.KTbl[0], optic.KTbl[1])
-	tbl := make(optic.FArr64, int(1./optic.Params.H)+2)
-
-	xil := optic.FArr64{0}
-	etal := optic.FArr64{0}
-	xl := optic.FArr64{}
-
-	x := 0.
-	n := 0
-
-	for x+optic.Params.H < 1 {
-		xl = append(xl, x)
-		xil = append(xil, optic.C(lt, tbl, n)/(optic.B(lt, kt, tbl, n)-optic.A(lt, tbl, n)*xil[n]))
-		etal = append(etal, (optic.D(kt, tbl, n)+optic.A(lt, tbl, n)*xil[n])/
-			(optic.B(lt, kt, tbl, n)-optic.A(lt, tbl, n)*xil[n]))
-
-		n++
-		x += optic.Params.H
+	xl := make(emission.FArr64, int((emission.Params.L+emission.Params.H)/emission.Params.H))
+	for i := 1; i < len(xl); i++ {
+		xl[i] = xl[i-1] + emission.Params.H
 	}
-
-	xl = append(xl, x+optic.Params.H, x+optic.Params.H*2)
-
-	lcs := optic.GetLConds(lt, kt, tbl, n)
-	tbl[n] = (lcs.P - lcs.M*xil[n]) / (lcs.K + lcs.M*xil[n])
-
-	for i := n - 1; i > -1; i-- {
-		tbl[i] = xil[i+1]*tbl[i+1] + etal[i+1]
+	{
+		tbl := emission.SimpleIters(0.25, 1e-5, 100)
+		emission.DrawPlot(xl, tbl, "T(x)", "x", "T", "data/tx.png")
 	}
-
-	optic.DrawPlot(xl, tbl, "T(x)", "x", "T", "data/tx.png")
+	{
+		emission.Params = emission.Emission{1.4, 0.2, 300, 400, 5.668e-12, 100, 0.05, 1e-4}
+		emission.Params.T0 = 2400
+		tbl := emission.SimpleIters(0.25, 1e-5, 100)
+		emission.DrawPlot(xl, tbl, "T(x)", "x", "T", "data/tx0.png")
+	}
+	{
+		emission.Params = emission.Emission{1.4, 0.2, 300, 400, 5.668e-12, 100, 0.05, 1e-4}
+		emission.Params.F0 = -10
+		tbl := emission.SimpleIters(0.25, 1e-5, 100)
+		emission.DrawPlot(xl, tbl, "T(x)", "x", "T", "data/tx1.png")
+	}
+	{
+		emission.Params = emission.Emission{1.4, 0.2, 300, 400, 5.668e-12, 100, 0.05, 1e-4}
+		tbl1 := emission.SimpleIters(0.25, 1e-5, 100)
+		emission.Params.Alpha *= 3
+		tbl2 := emission.SimpleIters(0.25, 1e-5, 100)
+		emission.DrawMultiplePlot(xl, tbl1, xl, tbl2, "T(x)", "x", "T", "data/tx2.png")
+	}
+	{
+		emission.Params = emission.Emission{1.4, 0.2, 300, 400, 5.668e-12, 100, 0.05, 1e-4}
+		emission.Params.F0 = 0
+		tbl := emission.SimpleIters(0.25, 1e-5, 100)
+		emission.DrawPlot(xl, tbl, "T(x)", "x", "T", "data/tx3.png")
+	}
 }
