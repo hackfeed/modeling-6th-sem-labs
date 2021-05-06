@@ -15,7 +15,7 @@ func main() {
 	}
 	{
 		emission.Params = emission.Emission{1.4, 0.2, 300, 400, 5.668e-12, 100, 0.05, 1e-4}
-		emission.Params.T0 = 2400
+		emission.Params.T0 = 1200
 		tbl := emission.SimpleIters(0.25, 1e-5, 100)
 		emission.DrawPlot(xl, tbl, "T(x)", "x", "T", "data/tx0.png")
 	}

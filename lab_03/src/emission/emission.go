@@ -125,11 +125,11 @@ func interpolate(xs, ys FArr64) interp.AkimaSpline {
 }
 
 func getP(x float64, kt interp.AkimaSpline) float64 {
-	return 4 * Params.Np * Params.Np * Params.Sigma * kt.Predict(x) * math.Pow(x, 3)
+	return 0
 }
 
 func getF(x float64, kt interp.AkimaSpline) float64 {
-	return 4 * Params.Np * Params.Np * Params.Sigma * kt.Predict(x) * math.Pow(Params.T0, 4)
+	return -4 * Params.Np * Params.Np * Params.Sigma * kt.Predict(x) * (math.Pow(x, 4) - math.Pow(Params.T0, 4))
 }
 
 func getXi(x1, x2 float64) float64 {
